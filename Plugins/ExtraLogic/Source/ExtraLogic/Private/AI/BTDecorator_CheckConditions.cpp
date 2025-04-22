@@ -2,10 +2,13 @@
 
 
 #include "AI/BTDecorator_CheckConditions.h"
+#include "AIController.h"
+
 
 UBTDecorator_CheckConditions::UBTDecorator_CheckConditions()
 {
 	NodeName = "Check Conditions";
+	bCreateNodeInstance = true;
 }
 
 bool UBTDecorator_CheckConditions::CalculateRawConditionValue(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) const
@@ -19,20 +22,25 @@ bool UBTDecorator_CheckConditions::CalculateRawConditionValue(UBehaviorTreeCompo
 
 	for (auto const& Condition : Conditions)
 	{
-		if (Condition->CheckCondition())
+		if (Condition)
 		{
-			if (MatchType == EConditionMatchType::ANY)
+			SetConditionOwner(OwnerComp, Condition);
+
+			if (Condition->CheckCondition())
 			{
-				return true;
+				if (MatchType == EConditionMatchType::ANY)
+				{
+					return true;
+				}
+			}
+			else
+			{
+				if (MatchType == EConditionMatchType::ALL)
+				{
+					return false;
+				}
 			}
 		}
-		else
-		{
-			if (MatchType == EConditionMatchType::ALL)
-			{
-				return false;
-			}
-		}	
 	}
 
 	return Result;
@@ -45,12 +53,25 @@ FString UBTDecorator_CheckConditions::GetStaticDescription() const
 		return "No conditions provided";
 	}
 
-	FString Description = "Processing: ";
+	FString Description = "Processing: \n";
 	for (auto const& Condition : Conditions)
 	{
-		Description += Condition->GetConditionName() + "\n";
+		if (Condition)
+		{
+			Description += Condition->GetConditionName() + "\n";
+		}
 	}
 	Description.TrimEndInline();
 
 	return Description;
+}
+
+void UBTDecorator_CheckConditions::SetConditionOwner(UBehaviorTreeComponent& OwnerComp, UBaseCondition* Condition) const
+{
+	APawn* Owner = Cast<AAIController>(OwnerComp.GetOwner())->GetPawn();
+
+	if (!Condition->GetOwner())
+	{
+		Condition->SetOwner(Owner);
+	}
 }

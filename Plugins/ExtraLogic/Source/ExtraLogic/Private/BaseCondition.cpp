@@ -33,6 +33,16 @@ UWorld* UBaseCondition::GetWorld() const
 	return nullptr;
 }
 
+void UBlueprintBaseCondition::K2_SetOwner(AActor* NewOwner)
+{
+	SetOwner(NewOwner);
+}
+
+AActor* UBlueprintBaseCondition::K2_GetOwner() const
+{
+	return GetOwner();
+}
+
 bool UBlueprintBaseCondition::Condition() const
 {
 	return K2_Condition();
