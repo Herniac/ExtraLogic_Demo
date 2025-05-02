@@ -10,4 +10,6 @@ ExtraLogic is a versatile Unreal Engine plugin designed to simplify the developm
 
 🧩 Condition Objects: Easily implement logic with simple boolean outputs. These condition objects are perfect for creating decorators or managing gameplay flow, eliminating the need for writing custom code for each scenario.
 
+🧩 Blackboard Value Provider Objects: A set of lightweight helper objects that set predefined values on blackboard keys by type. One for each Blackboard Key Type, all based on mutual parent class.
+
 🧩 Future Enhancements: In future updates, ExtraLogic will include triggerable world events and a comprehensive Blueprint function library that exposes handy functions and C++-only features, further expanding the tool’s utility.
