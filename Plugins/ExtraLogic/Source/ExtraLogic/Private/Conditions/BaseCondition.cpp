@@ -1,7 +1,7 @@
 // Copyright 2025 Crippling Depression Ind. all rights reserved.
 
 
-#include "BaseCondition.h"
+#include "Conditions/BaseCondition.h"
 
 
 bool UBaseCondition::CheckCondition() const

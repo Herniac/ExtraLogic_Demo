@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "BehaviorTree/BTDecorator.h"
-#include "BaseCondition.h"
+#include "Conditions/BaseCondition.h"
 #include "BTDecorator_CheckConditions.generated.h"
 
 /**

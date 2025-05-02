@@ -1,7 +1,7 @@
 // Copyright 2025 Crippling Depression Ind. all rights reserved.
 
 
-#include "AI/BTDecorator_CheckConditions.h"
+#include "Conditions/AI/BTDecorator_CheckConditions.h"
 #include "AIController.h"
 
 
