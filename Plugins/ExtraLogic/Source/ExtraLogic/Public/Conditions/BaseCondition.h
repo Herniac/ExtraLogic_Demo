@@ -28,8 +28,8 @@ class EXTRALOGIC_API UBaseCondition : public UObject
 	GENERATED_BODY()
 
 public:
-	/** Call this function externally for condition check. It alters the result based on bInversed property */
-	bool CheckCondition() const;
+	/** Call this function externally for condition check. The result is based on bInversed property */
+	bool CheckCondition(UObject* Context) const;
 	/** Overriden to allow latent functions */
 	virtual class UWorld* GetWorld() const override;
 	/** */
@@ -39,9 +39,9 @@ public:
 	/** */
 	AActor* GetOwner() const { return Owner.Get(); }
 
-protected:
-	/** Body of the condition steering logic */
-	virtual bool Condition() const PURE_VIRTUAL(UBaseCondition::CheckCondition, return false;);
+protected: 
+	/** The main body of the condition steering logic. A context object can be passed as param if needed. */
+	virtual bool Condition(UObject* Context) const PURE_VIRTUAL(UBaseCondition::CheckCondition, return false;);
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Logic")
 	FString ConditionName = "Base Condition";
@@ -58,11 +58,11 @@ class EXTRALOGIC_API UBlueprintBaseCondition : public UBaseCondition
 
 public:
 	UFUNCTION(BlueprintImplementableEvent, Category = "Logic", meta = (DisplayName = "Condition"))
-	bool K2_Condition() const;
+	bool K2_Condition(UObject* Context) const;
 	UFUNCTION(BlueprintCallable, Category = "Logic", meta = (DisplayName = "SetOwner"))
 	void K2_SetOwner(AActor* NewOwner);
 	UFUNCTION(BlueprintPure, Category = "Logic", meta = (DisplayName = "GetOwner"))
 	AActor* K2_GetOwner() const;
 
-	virtual bool Condition() const override;
+	virtual bool Condition(UObject* Context) const override;
 };

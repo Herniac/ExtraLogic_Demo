@@ -4,9 +4,9 @@
 #include "Conditions/BaseCondition.h"
 
 
-bool UBaseCondition::CheckCondition() const
+bool UBaseCondition::CheckCondition(UObject* Context) const
 {
-	return bInversed ? !Condition() : Condition();
+	return bInversed ? !Condition(Context) : Condition(Context);
 }
 
 UWorld* UBaseCondition::GetWorld() const
@@ -43,7 +43,7 @@ AActor* UBlueprintBaseCondition::K2_GetOwner() const
 	return GetOwner();
 }
 
-bool UBlueprintBaseCondition::Condition() const
+bool UBlueprintBaseCondition::Condition(UObject* Context) const
 {
-	return K2_Condition();
+	return K2_Condition(Context);
 }

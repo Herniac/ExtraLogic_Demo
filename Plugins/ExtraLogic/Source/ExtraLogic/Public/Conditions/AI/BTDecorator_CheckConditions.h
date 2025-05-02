@@ -8,8 +8,7 @@
 #include "BTDecorator_CheckConditions.generated.h"
 
 /**
- *	Allows execution flow when provided conditions are met.
- *	Also sets owning Character as conditions' owner if there is none.
+ *	Allows execution flow when provided conditions are met for the possesed Pawn.
  */
 
 UCLASS()
@@ -23,7 +22,6 @@ public:
 protected:
 	virtual bool CalculateRawConditionValue(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) const override;
 	virtual FString GetStaticDescription() const override;
-	void SetConditionOwner(UBehaviorTreeComponent& OwnerComp, UBaseCondition* Condition) const;
 
 	UPROPERTY(EditAnywhere, Category = "CheckConditions")
 	EConditionMatchType MatchType;

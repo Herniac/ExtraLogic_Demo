@@ -24,9 +24,14 @@ bool UBTDecorator_CheckConditions::CalculateRawConditionValue(UBehaviorTreeCompo
 	{
 		if (Condition)
 		{
-			SetConditionOwner(OwnerComp, Condition);
+			APawn* Owner = Cast<AAIController>(OwnerComp.GetOwner())->GetPawn();
 
-			if (Condition->CheckCondition())
+			if (!Owner)
+			{
+				continue;
+			}
+
+			if (Condition->CheckCondition(Owner))
 			{
 				if (MatchType == EConditionMatchType::ANY)
 				{
@@ -64,14 +69,4 @@ FString UBTDecorator_CheckConditions::GetStaticDescription() const
 	Description.TrimEndInline();
 
 	return Description;
-}
-
-void UBTDecorator_CheckConditions::SetConditionOwner(UBehaviorTreeComponent& OwnerComp, UBaseCondition* Condition) const
-{
-	APawn* Owner = Cast<AAIController>(OwnerComp.GetOwner())->GetPawn();
-
-	if (!Condition->GetOwner())
-	{
-		Condition->SetOwner(Owner);
-	}
 }
