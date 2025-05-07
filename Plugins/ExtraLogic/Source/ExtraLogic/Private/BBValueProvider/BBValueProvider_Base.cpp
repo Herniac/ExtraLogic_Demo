@@ -37,11 +37,14 @@ void UBBValueProvider_Vector::SetBlackboardValue(UBlackboardComponent* Blackboar
 	}
 }
 
-void UBBValueProvider_Object::SetBlackboardValue(UBlackboardComponent* Blackboard) const
+void UBBValueProvider_Actor::SetBlackboardValue(UBlackboardComponent* Blackboard) const
 {
 	if (ensureMsgf(Blackboard, TEXT("No blackboard provided!")))
 	{
-		Blackboard->SetValueAsObject(BlackboardKeyName, Value);
+		if (Value.IsValid())
+		{
+			Blackboard->SetValueAsObject(BlackboardKeyName, Value.Get());
+		}
 	}
 }
 

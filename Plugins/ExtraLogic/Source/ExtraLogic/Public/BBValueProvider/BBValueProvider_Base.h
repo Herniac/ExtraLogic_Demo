@@ -105,7 +105,7 @@ protected:
  *	Object
  */
 UCLASS()
-class EXTRALOGIC_API UBBValueProvider_Object : public UBBValueProvider_Base
+class EXTRALOGIC_API UBBValueProvider_Actor : public UBBValueProvider_Base
 {
 	GENERATED_BODY()
 
@@ -115,7 +115,7 @@ public:
 protected:
 	/** */
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Blackboard")
-	UObject* Value;
+	TSoftObjectPtr<AActor> Value;
 };
 
 /**
